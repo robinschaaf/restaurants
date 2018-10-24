@@ -9,7 +9,7 @@
         <div class="header">
           <div class="h2">Chicago Restaurants</div>
           <label>
-            <input type="search" class="form-control input-xs search-input" [(ngModel)]="searchTerm" placeholder="Search for Restaurants...">
+            <input type="search" class="form-control input-xs search-input" [(ngModel)]="searchTerm" placeholder="Search...">
           </label>
         </div>
         <table class="table table-condensed">
@@ -19,6 +19,9 @@
             <td>{{ restaurant.zip }}</td>
           </tr>
         </table>
+
+        <div *ngIf="restaurantArray().length === 0 && !!searchTerm"><em>Sorry, but no restaurants were found.  Please try another search.</em></div>
+        <div *ngIf="errorMessage"><em>There was a problem loading the restaurant list.  The error message is:  "{{ errorMessage }}"</em></div>
       </div>
     </div>
   </section>

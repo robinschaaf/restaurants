@@ -10,6 +10,7 @@ export class RestaurantListComponent implements OnInit {
   restaurantList = [];
   searchTerm = '';
   itemsToDisplay = 100;
+  errorMessage = '';
 
   constructor(private restaurantDataService: RestaurantDataService) { }
 
@@ -17,6 +18,9 @@ export class RestaurantListComponent implements OnInit {
     this.restaurantDataService.getRestaurantData()
       .subscribe((response: any[]) => {
         this.restaurantList = response;
+      },
+      (err) => {
+        this.handleError(err);
       });
   }
 
@@ -39,6 +43,10 @@ export class RestaurantListComponent implements OnInit {
     this.itemsToDisplay = this.itemsToDisplay < this.restaurantList.length
       ? this.itemsToDisplay = this.itemsToDisplay + 20
       : this.restaurantList.length;
+  }
+
+  handleError(err) {
+    this.errorMessage = err && err.error ? err.error.message : 'Unknown Error';
   }
 }
 
