@@ -1,0 +1,28 @@
+<div
+ infiniteScroll
+ [infiniteScrollDistance]="2"
+ [infiniteScrollThrottle]="50"
+ (scrolled)="onScrollDown()" >
+  <section class="container">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-2">
+        <div class="header">
+          <div class="h2">Chicago Restaurants</div>
+          <label>
+            <input type="search" class="form-control input-xs search-input" [(ngModel)]="searchTerm" placeholder="Search...">
+          </label>
+        </div>
+        <table class="table table-condensed">
+          <tr *ngFor="let restaurant of restaurantArray()">
+            <td>{{ restaurant.name | titlecase }}</td>
+            <td>{{ restaurant.address | titlecase }}</td>
+            <td>{{ restaurant.zip }}</td>
+          </tr>
+        </table>
+
+        <div *ngIf="restaurantArray().length === 0 && !!searchTerm"><em>Sorry, but no restaurants were found.  Please try another search.</em></div>
+        <div *ngIf="errorMessage"><em>There was a problem loading the restaurant list.  The error message is:  "{{ errorMessage }}"</em></div>
+      </div>
+    </div>
+  </section>
+</div>
